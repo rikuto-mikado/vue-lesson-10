@@ -1,6 +1,9 @@
 const app = Vue.createApp({
   data() {
-    return { goals: [] };
+    return { 
+      goals: []
+
+    };
   },
 });
 
