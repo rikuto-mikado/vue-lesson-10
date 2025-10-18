@@ -9,7 +9,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
-    <script src="https://unpkg.com/vue@next" defer></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="app.js" defer></script>
   </head>
   <body>
@@ -18,9 +18,13 @@
     </header>
     <section id="user-goals">
       <h2>My course goals</h2>
-      <input type="text" />
-      <button>Add Goal</button>
-      <p>No goals have been added yet - please start adding some!</p>
+      <input type="text" v-model="enteredGoalValue" />
+      <!-- @click is Vue's event listener directive (shorthand for v-on:click) -->
+      <!-- It calls the addGoal method when button is clicked, connecting template to methods -->
+      <button @click="addGoal">Add Goal</button>
+      <!-- v-if conditionally renders this element only when goals array is empty -->
+      <!-- Display message when goals array is empty -->
+      <p v-if="goals.length === 0">No goals have been added yet - please start adding some!</p>
       <ul>
         <li>Goal</li>
       </ul>
