@@ -24,10 +24,23 @@
       <button @click="addGoal">Add Goal</button>
       <!-- v-if conditionally renders this element only when goals array is empty -->
       <!-- Display message when goals array is empty -->
-      <p v-if="goals.length === 0">No goals have been added yet - please start adding some!</p>
+      <!-- <p v-if="goals.length === 0">No goals have been added yet - please start adding some!</p> -->
+
+      <!-- v-show: Toggles CSS 'display' property. Element always stays in DOM, just hidden/shown. -->
+      <!-- Better for frequent toggling as it doesn't destroy/recreate the element. -->
+      <!-- Unlike v-if/v-else, v-show requires explicit conditions for each element. -->
+      <p v-show="goals.length === 0">No goals have been added yet - please start adding some!</p>
+
       <!-- v-else renders this element when the v-if condition is false (when goals exist) -->
       <!-- This unordered list displays the goals when there are one or more goals in the array -->
-      <ul v-else>
+      <!-- <ul v-else>
+        <li>Goal</li>
+      </ul> -->
+
+      <!-- v-show: Same as above, toggles CSS display without removing from DOM. -->
+      <!-- With v-show, we must write the opposite condition explicitly (no v-else equivalent). -->
+      <!-- Use v-show when toggling frequently; use v-if when condition rarely changes. -->
+      <ul v-show="goals.length > 0">
         <li>Goal</li>
       </ul>
     </section>
