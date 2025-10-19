@@ -25,7 +25,9 @@
       <!-- v-if conditionally renders this element only when goals array is empty -->
       <!-- Display message when goals array is empty -->
       <p v-if="goals.length === 0">No goals have been added yet - please start adding some!</p>
-      <ul>
+      <!-- v-else renders this element when the v-if condition is false (when goals exist) -->
+      <!-- This unordered list displays the goals when there are one or more goals in the array -->
+      <ul v-else>
         <li>Goal</li>
       </ul>
     </section>
