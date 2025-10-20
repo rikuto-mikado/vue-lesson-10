@@ -50,3 +50,67 @@
 ### Key Takeaway
 - **v-if/v-else**: Better when condition changes rarely (e.g., user login state)
 - **v-show**: Better when toggling frequently (e.g., dropdown menus, tabs)
+
+## List Rendering with v-for
+
+### What is v-for?
+- `v-for` is a directive that renders a list of items by iterating over an array
+- It creates a copy of the element for each item in the array
+- The syntax is `"item in items"` where `item` is the current element and `items` is the source array
+
+### v-for Syntax Breakdown
+
+| Component | Description | Example |
+|-----------|-------------|---------|
+| **Directive** | `v-for` | Placed on the element you want to repeat |
+| **Iterator Variable** | `goal` | Represents the current item in the loop |
+| **Source Array** | `goals` | The data array you're looping through |
+| **Full Syntax** | `"goal in goals"` | `<li v-for="goal in goals">` |
+| **Display Value** | `{{ goal }}` | Variable name must match the iterator variable |
+
+### Code Examples
+
+#### Basic v-for Usage:
+```html
+<!-- Loop through goals array and display each goal -->
+<ul v-else>
+  <li v-for="goal in goals">{{ goal }}</li>
+</ul>
+```
+
+#### How it Works:
+```javascript
+// If goals array contains: ['Learn Vue', 'Build App', 'Deploy']
+// The v-for will render:
+```
+```html
+<ul>
+  <li>Learn Vue</li>
+  <li>Build App</li>
+  <li>Deploy</li>
+</ul>
+```
+
+### Important Rules for v-for
+
+1. **Variable Name Matching**: The variable in `{{ }}` must match the iterator variable
+   ```html
+   <!-- Correct -->
+   <li v-for="goal in goals">{{ goal }}</li>
+
+   <!-- Wrong - variable name doesn't match -->
+   <li v-for="goal in goals">{{ item }}</li>
+   ```
+
+2. **Can be Combined with v-if/v-else**:
+   ```html
+   <p v-if="goals.length === 0">No goals yet!</p>
+   <ul v-else>
+     <li v-for="goal in goals">{{ goal }}</li>
+   </ul>
+   ```
+
+### Key Takeaway
+- Use `v-for` to dynamically render lists based on array data
+- The iterator variable (e.g., `goal`) is only available within the `v-for` element and its children
+- Always ensure the variable names match between `v-for` and template interpolation `{{ }}`
