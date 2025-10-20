@@ -37,7 +37,13 @@
         <!-- v-for: Loops through the goals array and renders a list item for each goal -->
         <!-- Syntax: "goal in goals" - 'goal' is the current item, 'goals' is the array -->
         <!-- {{ goal }} displays the current item's value - the variable name must match the one in v-for -->
-        <li v-for="goal in goals">{{ goal }}</li>
+        <!-- <li v-for="goal in goals">{{ goal }}</li> -->
+
+        <!-- v-for with index: Syntax "(goal, index) in goals" gives access to both item and its position -->
+        <!-- 'goal' is the current item, 'index' is its position (0, 1, 2, ...) in the array -->
+        <!-- Why use index? Vue needs a unique 'key' to track each element for efficient updates -->
+        <!-- Without proper keys, Vue may incorrectly reuse elements when the list changes -->
+        <li v-for="(goal, index) in goals">{{ goal }} - {{ index }}</li>
       </ul>
 
       <!-- v-show: Same as above, toggles CSS display without removing from DOM. -->
@@ -45,6 +51,15 @@
       <!-- Use v-show when toggling frequently; use v-if when condition rarely changes. -->
       <!-- <ul v-show="goals.length > 0">
         <li>Goal</li>
+      </ul> -->
+
+
+      <!-- <ul>
+        <li v-for="(value, key, index) in {name: 'Rikuto', age: '18'}">{{ key }}: {{ value }} - {{ index }}</li>
+      </ul> -->
+
+      <!-- <ul>
+        <li v-for="num in 10">{{ num }}</li>
       </ul> -->
     </section>
   </body>
