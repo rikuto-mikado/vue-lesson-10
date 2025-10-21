@@ -48,7 +48,8 @@
         <!-- This allows each list item to be removed from the array when clicked -->
         <!-- The index parameter identifies which specific goal to remove from the goals array -->
         <li v-for="(goal, index) in goals" @click="removeGoal(index)">
-          {{ goal }} - {{ index }}
+          <p>{{ goal }} - {{ index }}</p>
+          <input type="text" @click.stop>
         </li>
       </ul>
 
