@@ -43,7 +43,13 @@
         <!-- 'goal' is the current item, 'index' is its position (0, 1, 2, ...) in the array -->
         <!-- Why use index? Vue needs a unique 'key' to track each element for efficient updates -->
         <!-- Without proper keys, Vue may incorrectly reuse elements when the list changes -->
-        <li v-for="(goal, index) in goals">{{ goal }} - {{ index }}</li>
+        <!-- @click="removeGoal(index)" attaches a click event listener to each list item -->
+        <!-- When clicked, it calls the removeGoal method and passes the item's index as an argument -->
+        <!-- This allows each list item to be removed from the array when clicked -->
+        <!-- The index parameter identifies which specific goal to remove from the goals array -->
+        <li v-for="(goal, index) in goals" @click="removeGoal(index)">
+          {{ goal }} - {{ index }}
+        </li>
       </ul>
 
       <!-- v-show: Same as above, toggles CSS display without removing from DOM. -->

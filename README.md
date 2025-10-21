@@ -212,3 +212,117 @@ age: 18 - 1
 - Always ensure the variable names match between `v-for` and template interpolation `{{ }}`
 - Use `(item, index)` syntax when you need to track the position of each element
 - `v-for` works with arrays, objects, and number ranges - choose based on your data structure
+
+## Event Handling with @click
+
+### Combining @click with v-for
+
+The `@click` directive can be combined with `v-for` to handle click events on list items:
+
+```html
+<li v-for="(goal, index) in goals" @click="removeGoal(index)">
+  {{ goal }} - {{ index }}
+</li>
+```
+
+### How @click="removeGoal(index)" Works
+
+| Component | Description |
+|-----------|-------------|
+| **@click** | Vue's event listener directive (shorthand for `v-on:click`) |
+| **removeGoal** | The method name to call when the element is clicked |
+| **(index)** | The argument passed to the method - identifies which item was clicked |
+| **Purpose** | Allows each list item to be removed when clicked |
+
+### Event Flow Breakdown
+
+1. **Event Listener Attachment**: `@click` attaches a click event listener to each `<li>` element created by `v-for`
+2. **User Clicks**: When a user clicks on any list item, the click event fires
+3. **Method Called**: Vue calls the `removeGoal` method defined in the component's methods
+4. **Index Passed**: The `index` of the clicked item is passed as an argument
+5. **Item Removed**: The method uses the index to remove that specific goal from the `goals` array
+
+### Why Pass the Index?
+
+- **Identification**: The index identifies which specific item in the array should be removed
+- **Precision**: Without the index, the method wouldn't know which goal the user clicked
+- **Array Manipulation**: JavaScript's `splice()` method needs the index to remove the correct item
+
+### Important: Parameter Naming Flexibility
+
+**Question**: Why does `removeGoal(idx)` work even though we pass `index` from the template?
+
+**Answer**: The parameter name in the method definition can be anything - it's just a variable name!
+
+#### How It Works:
+
+```html
+<!-- In template: 'index' is the variable name from v-for -->
+<li v-for="(goal, index) in goals" @click="removeGoal(index)">
+```
+
+Here, `index` contains the **value** (0, 1, 2...) which gets passed to the method.
+
+```javascript
+// In JavaScript: parameter name can be anything
+removeGoal(idx) {  // ← 'idx', 'i', 'position' - any name works!
+  this.goals.splice(idx, 1);
+}
+```
+
+#### Real-World Analogy:
+
+```javascript
+// Example 1: parameter named 'name'
+function greet(name) {
+  console.log("Hello " + name);
+}
+greet("Rikuto");  // Passes the value "Rikuto"
+
+// Example 2: parameter named 'person' - works the same!
+function greet(person) {
+  console.log("Hello " + person);
+}
+greet("Rikuto");  // Same value, different parameter name
+```
+
+#### Key Rules:
+
+| Location | Naming Rule | Example |
+|----------|-------------|---------|
+| **Template (HTML)** | Must use the variable name defined in `v-for` | `@click="removeGoal(index)"` ✓<br>`@click="removeGoal(idx)"` ✗ |
+| **Method (JavaScript)** | Can use any parameter name you want | `removeGoal(idx)` ✓<br>`removeGoal(index)` ✓<br>`removeGoal(i)` ✓ |
+
+**What matters**:
+- The **value** being passed (0, 1, 2...)
+- NOT the parameter name in the method definition
+
+**Common parameter names you might see**:
+- `index`, `idx`, `i` - for array positions
+- `id` - for unique identifiers
+- `position`, `pos` - for positions in a list
+
+### Example Implementation
+
+```javascript
+// In app.js
+const app = Vue.createApp({
+  data() {
+    return {
+      goals: ['Learn Vue', 'Build App', 'Deploy']
+    };
+  },
+  methods: {
+    removeGoal(index) {
+      // Remove 1 item at position 'index' from the goals array
+      this.goals.splice(index, 1);
+    }
+  }
+});
+```
+
+### Key Takeaway
+- `@click` enables interactive list items that can respond to user clicks
+- Passing the `index` parameter allows the click handler to identify which specific item was clicked
+- This pattern is commonly used for delete/remove functionality in lists
+- The combination of `v-for` and `@click` creates dynamic, interactive lists in Vue

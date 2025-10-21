@@ -12,6 +12,9 @@ const app = Vue.createApp({
     // push() adds the entered value to the end of the goals array
     addGoal() {
       this.goals.push(this.enteredGoalValue);
+    },
+    removeGoal(idx) {
+      this.goals.splice(idx, 1);
     }
   }
 });
