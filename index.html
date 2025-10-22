@@ -22,40 +22,26 @@
       <!-- @click is Vue's event listener directive (shorthand for v-on:click) -->
       <!-- It calls the addGoal method when button is clicked, connecting template to methods -->
       <button @click="addGoal">Add Goal</button>
-      <!-- v-if conditionally renders this element only when goals array is empty -->
-      <!-- Display message when goals array is empty -->
+      <!-- v-if: Conditionally renders element only when condition is true -->
       <p v-if="goals.length === 0">No goals have been added yet - please start adding some!</p>
 
-      <!-- v-show: Toggles CSS 'display' property. Element always stays in DOM, just hidden/shown. -->
-      <!-- Better for frequent toggling as it doesn't destroy/recreate the element. -->
-      <!-- Unlike v-if/v-else, v-show requires explicit conditions for each element. -->
+      <!-- v-show: Toggles CSS display (element stays in DOM). Better for frequent toggling. -->
       <!-- <p v-show="goals.length === 0">No goals have been added yet - please start adding some!</p> -->
 
-      <!-- v-else renders this element when the v-if condition is false (when goals exist) -->
-      <!-- This unordered list displays the goals when there are one or more goals in the array -->
+      <!-- v-else: Renders when the preceding v-if condition is false -->
       <ul v-else>
-        <!-- v-for: Loops through the goals array and renders a list item for each goal -->
-        <!-- Syntax: "goal in goals" - 'goal' is the current item, 'goals' is the array -->
-        <!-- {{ goal }} displays the current item's value - the variable name must match the one in v-for -->
+        <!-- v-for: Loops through array. Syntax: "(item, index) in array" -->
         <!-- <li v-for="goal in goals">{{ goal }}</li> -->
 
-        <!-- v-for with index: Syntax "(goal, index) in goals" gives access to both item and its position -->
-        <!-- 'goal' is the current item, 'index' is its position (0, 1, 2, ...) in the array -->
-        <!-- Why use index? Vue needs a unique 'key' to track each element for efficient updates -->
-        <!-- Without proper keys, Vue may incorrectly reuse elements when the list changes -->
-        <!-- @click="removeGoal(index)" attaches a click event listener to each list item -->
-        <!-- When clicked, it calls the removeGoal method and passes the item's index as an argument -->
-        <!-- This allows each list item to be removed from the array when clicked -->
-        <!-- The index parameter identifies which specific goal to remove from the goals array -->
-        <li v-for="(goal, index) in goals" @click="removeGoal(index)">
+        <!-- :key (v-bind:key): Binds unique identifier. Helps Vue track elements for efficient updates. -->
+        <!-- @click (v-on:click): Event listener. Calls removeGoal method with index parameter. -->
+        <li v-for="(goal, index) in goals" :key="goal" @click="removeGoal(index)">
           <p>{{ goal }} - {{ index }}</p>
           <input type="text" @click.stop>
         </li>
       </ul>
 
-      <!-- v-show: Same as above, toggles CSS display without removing from DOM. -->
-      <!-- With v-show, we must write the opposite condition explicitly (no v-else equivalent). -->
-      <!-- Use v-show when toggling frequently; use v-if when condition rarely changes. -->
+      <!-- v-show vs v-if: Use v-show for frequent toggling, v-if when condition rarely changes. -->
       <!-- <ul v-show="goals.length > 0">
         <li>Goal</li>
       </ul> -->
